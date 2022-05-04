@@ -1,5 +1,7 @@
 import { useSession } from "next-auth/react";
+import { Fragment } from "react";
 
+import Layout from "../Layout";
 import Intro from "./Intro";
 import Profile from "./Profile";
 
@@ -9,11 +11,17 @@ const Test = () => {
     return null;
   }
 
-  if (data) {
-    return <Profile session={data} />;
-  } else {
-    return <Intro />;
-  }
+  return (
+    <Fragment>
+      {data ? (
+        <Layout>
+          <Profile session={data} />{" "}
+        </Layout>
+      ) : (
+        <Intro />
+      )}
+    </Fragment>
+  );
 };
 
 export default Test;
