@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "@idealjs/great-adventure-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,8 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "dev:deps": "docker-compose -f docker-compose.yml up"
+    "lint": "next lint"
   },
   "dependencies": {
     "@headlessui/react": "^1.6.1",
