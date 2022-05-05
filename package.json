@@ -1,14 +1,20 @@
 {
-  "name": "@idealjs/mono-template",
+  "name": "@idealjs/great-adventure",
   "private": true,
   "workspaces": [
-    "packages/*",
-    "app"
+    "packages/*"
   ],
   "repository": "git@github.com:idealjs/mono-template.git",
   "license": "MIT",
   "scripts": {
+    "dev": "concurrently \"yarn dev:app\" \"yarn dev:service\"",
+    "dev:app": "cd packages/app && yarn dev",
+    "dev:service": "cd packages/service && yarn dev",
+    "dev:deps": "docker-compose -f docker-compose.yml up",
     "test": "jest"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "concurrently": "^7.1.0",
+    "wait-on": "^6.0.1"
+  }
 }
