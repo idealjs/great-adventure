@@ -1,28 +1,51 @@
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronRightIcon } from "@heroicons/react/solid";
+import clsx from "clsx";
 import { Fragment } from "react";
+
+const buttonStyle = (active: boolean) =>
+  clsx("flex w-full items-center", "px-2 py-2", "group rounded-md text-sm", {
+    "bg-violet-500": active,
+    "text-white": active,
+    "text-gray-900": !active,
+  });
 
 const Profile = () => {
   return (
     <Fragment>
       <Menu
         as="div"
-        className={["relative text-left mr-2", "hidden md:inline-block"].join(
-          " "
+        className={clsx(
+          "relative",
+          "text-left",
+          "mr-2",
+          "hidden md:inline-block"
         )}
       >
         {({ open }) => {
           return (
             <Fragment>
               <div>
-                <Menu.Button className="inline-flex w-full justify-center rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                <Menu.Button
+                  className={clsx(
+                    "inline-flex w-full justify-center rounded-md",
+                    "bg-black bg-opacity-20 hover:bg-opacity-30",
+                    "px-4 py-2",
+                    "text-sm font-medium text-white",
+                    "focus:outline-none",
+                    "focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+                  )}
+                >
                   Profile
                   <ChevronRightIcon
-                    className={[
-                      "ml-2 -mr-1 h-5 w-5 text-violet-200 hover:text-violet-100",
-                      "transition",
-                      open && "rotate-90",
-                    ].join(" ")}
+                    className={clsx(
+                      "ml-2 -mr-1 h-5 w-5",
+                      "text-violet-200 hover:text-violet-100",
+                      {
+                        transition: true,
+                        "rotate-90": open,
+                      }
+                    )}
                     aria-hidden="true"
                   />
                   <Transition
@@ -43,30 +66,24 @@ const Profile = () => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <Menu.Items
+                  className={clsx(
+                    "absolute right-0 mt-2 w-56",
+                    "origin-top-right",
+                    "divide-y divide-gray-100",
+                    "rounded-md bg-white shadow-lg",
+                    "ring-1 ring-black ring-opacity-5 focus:outline-none"
+                  )}
+                >
                   <div className="px-1 py-1 ">
                     <Menu.Item>
                       {({ active }) => (
-                        <button
-                          className={`${
-                            active
-                              ? "bg-violet-500 text-white"
-                              : "text-gray-900"
-                          } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                        >
-                          Edit
-                        </button>
+                        <button className={buttonStyle(active)}>Edit</button>
                       )}
                     </Menu.Item>
                     <Menu.Item>
                       {({ active }) => (
-                        <button
-                          className={`${
-                            active
-                              ? "bg-violet-500 text-white"
-                              : "text-gray-900"
-                          } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                        >
+                        <button className={buttonStyle(active)}>
                           Duplicate
                         </button>
                       )}
@@ -75,43 +92,19 @@ const Profile = () => {
                   <div className="px-1 py-1">
                     <Menu.Item>
                       {({ active }) => (
-                        <button
-                          className={`${
-                            active
-                              ? "bg-violet-500 text-white"
-                              : "text-gray-900"
-                          } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                        >
-                          Archive
-                        </button>
+                        <button className={buttonStyle(active)}>Archive</button>
                       )}
                     </Menu.Item>
                     <Menu.Item>
                       {({ active }) => (
-                        <button
-                          className={`${
-                            active
-                              ? "bg-violet-500 text-white"
-                              : "text-gray-900"
-                          } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                        >
-                          Move
-                        </button>
+                        <button className={buttonStyle(active)}>Move</button>
                       )}
                     </Menu.Item>
                   </div>
                   <div className="px-1 py-1">
                     <Menu.Item>
                       {({ active }) => (
-                        <button
-                          className={`${
-                            active
-                              ? "bg-violet-500 text-white"
-                              : "text-gray-900"
-                          } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                        >
-                          Delete
-                        </button>
+                        <button className={buttonStyle(active)}>Delete</button>
                       )}
                     </Menu.Item>
                   </div>
@@ -124,4 +117,5 @@ const Profile = () => {
     </Fragment>
   );
 };
+
 export default Profile;
