@@ -1,6 +1,8 @@
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
+
+import { useSocket } from "../Socket";
 
 interface IProps {
   session: Session;
@@ -12,8 +14,6 @@ const Profile = (props: IProps) => {
   const onClick = useCallback(async () => {
     await fetch("api/users");
   }, []);
-
-  
 
   return (
     <div>

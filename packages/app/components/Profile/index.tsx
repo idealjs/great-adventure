@@ -2,11 +2,13 @@ import { useSession } from "next-auth/react";
 import { Fragment } from "react";
 
 import Layout from "../Layout";
+import { useSocket } from "../Socket";
 import Intro from "./Intro";
 import Profile from "./Profile";
 
 const Test = () => {
   const { data, status } = useSession();
+
   if (status === "loading") {
     return null;
   }
@@ -15,7 +17,7 @@ const Test = () => {
     <Fragment>
       {data ? (
         <Layout>
-          <Profile session={data} />{" "}
+          <Profile session={data} />
         </Layout>
       ) : (
         <Intro />
