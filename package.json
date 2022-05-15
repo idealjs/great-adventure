@@ -7,9 +7,8 @@
   "repository": "git@github.com:idealjs/mono-template.git",
   "license": "MIT",
   "scripts": {
-    "dev": "concurrently \"yarn dev:app\" \"yarn dev:service\"",
+    "dev": "concurrently \"yarn dev:app\"",
     "dev:app": "cd packages/app && yarn dev",
-    "dev:service": "cd packages/service && yarn dev",
     "dev:deps": "docker-compose -f docker-compose.yml up",
     "test": "jest"
   },
