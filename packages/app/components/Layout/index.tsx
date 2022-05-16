@@ -1,24 +1,62 @@
+import clsx from "clsx";
 import Head from "next/head";
+import Link from "next/link";
 import { Fragment, PropsWithChildren } from "react";
+import { useTranslation } from "react-i18next";
 
-import { SocketProvider } from "../Socket";
-import NavBar from "./NavBar";
+const tooltip = clsx(
+  "invisible group-hover:visible",
+  "bg-sky-300/75 rounded",
+  "p-1 whitespace-nowrap select-none absolute left-full ml-2"
+);
+
+const button = "group relative bg-slate-700 w-9 h-9 m-1.5 hover:cursor-pointer";
 
 interface IProps {}
 
 const Layout = (props: PropsWithChildren<IProps>) => {
   const { children } = props;
+
+  const { t } = useTranslation();
+
   return (
     <Fragment>
-      <SocketProvider>
-        <Head>
-          <title>Great Adventure</title>
-          <meta name="description" content="Game of Great Adventure" />
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-        <NavBar />
+      <Head>
+        <title>Great Adventure</title>
+        <meta name="description" content="Game of Great Adventure" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <div className="flex h-screen">
+        <div className="flex flex-col justify-between	w-12 bg-slate-600">
+          <div>
+            <Link href="/game/camp">
+              <div className={button}>
+                <div className={tooltip}>{t("camp")}</div>
+              </div>
+            </Link>
+            <Link href="/game/map">
+              <div className={button}>
+                <div className={tooltip}>{t("map")}</div>
+              </div>
+            </Link>
+            <div className={button}>
+              <div className={tooltip}>{t("camp")}</div>
+            </div>
+          </div>
+          <div>
+            <div className={button}>
+              <div className={tooltip}>{t("camp")}</div>
+            </div>
+            <div className={button}>
+              <div className={tooltip}>{t("camp")}</div>
+            </div>
+            <div className={button}>
+              <div className={tooltip}>{t("settings")}</div>
+            </div>
+          </div>
+        </div>
         {children}
-      </SocketProvider>
+      </div>
     </Fragment>
   );
 };

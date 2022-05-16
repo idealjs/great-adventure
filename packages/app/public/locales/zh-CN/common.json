@@ -1,5 +1,8 @@
 {
   "adventurer": "冒险家",
   "camp": "营地",
+  "camp_empty_title": "营地里空空如也",
+  "map": "地图",
+  "map_title": "你想去哪里呢？",
   "settings": "设定"
 }
