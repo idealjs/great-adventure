@@ -3,6 +3,8 @@
   "camp": "营地",
   "camp_empty_title": "营地里空空如也",
   "map": "地图",
+  "map_placed": "你正在",
   "map_title": "你想去哪里呢？",
+  "map_reach": "可以抵达",
   "settings": "设定"
 }
