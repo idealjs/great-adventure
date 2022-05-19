@@ -3,7 +3,7 @@
   "plugins": ["simple-import-sort"],
   "rules": {
     "quotes": "warn",
-    "eqeqeq": "warn",
+    "eqeqeq": ["warn", "smart"],
     "simple-import-sort/imports": "warn",
     "simple-import-sort/exports": "warn",
     "react-hooks/exhaustive-deps": [
