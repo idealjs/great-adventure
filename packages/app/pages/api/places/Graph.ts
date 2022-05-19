@@ -1,12 +1,4 @@
-export interface IPoint {
-  id: string;
-  name: string;
-}
-
-export interface IPlace {
-  point: IPoint;
-  distance: number;
-}
+import { IPlace, IPoint } from "../../../lib/gamePlay";
 
 class Graph {
   public adjacency: Readonly<Map<string, IPlace[]>> = new Map();

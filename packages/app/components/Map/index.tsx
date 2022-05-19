@@ -2,10 +2,10 @@ import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { useState } from "react";
 import { useCallback } from "react";
-import useSwr from "swr";
+import useSWR from "swr";
 
 import fetcher from "../../lib/fetcher";
-import { IGameData } from "../../pages/api/gameData";
+import { IGameData } from "../../lib/gamePlay";
 import Layout from "../Layout";
 import Places from "./Places";
 
@@ -13,9 +13,9 @@ const Map = () => {
   const [expands, setExpands] = useState<{ key: string; mapId: string }[]>([]);
   const { t } = useTranslation();
 
-  const { data: res } = useSwr<{ data: IGameData }>("/api/gameData", fetcher);
+  const { data } = useSWR<IGameData>("/api/gameData", fetcher);
 
-  const currentMapId = res?.data.pointId;
+  const currentMapId = data?.currentMapId;
 
   const onPlaceClick = useCallback((key: string, mapId: string) => {
     setExpands((expands) => {

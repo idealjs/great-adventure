@@ -33,10 +33,11 @@ const placesHandler = (req: NextApiRequest, res: NextApiResponse) => {
           data: graph.adjacency.get(map_id) ?? [],
         });
       }
-      break;
+      return;
     default:
       res.setHeader("Allow", ["GET"]);
       res.status(405).end(`Method ${method} Not Allowed`);
+      return;
   }
 };
 

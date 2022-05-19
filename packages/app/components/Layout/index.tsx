@@ -4,9 +4,11 @@ import Link from "next/link";
 import { Fragment, PropsWithChildren } from "react";
 import { useTranslation } from "react-i18next";
 
+import GamePlay from "../GamePlay";
+
 const tooltip = clsx(
   "invisible group-hover:visible",
-  "bg-sky-300/75 rounded",
+  "bg-sky-300 rounded",
   "p-1 whitespace-nowrap select-none absolute left-full ml-2"
 );
 
@@ -21,6 +23,7 @@ const Layout = (props: PropsWithChildren<IProps>) => {
 
   return (
     <Fragment>
+      <GamePlay />
       <Head>
         <title>Great Adventure</title>
         <meta name="description" content="Game of Great Adventure" />
