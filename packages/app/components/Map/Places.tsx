@@ -1,39 +1,32 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
-import { useState } from "react";
-import { useCallback } from "react";
-import useSWR from "swr";
 
-import fetcher from "../../lib/fetcher";
-import { IPlace } from "../../lib/gamePlay";
+import PlaceItem from "./PlaceItem";
+import usePlace from "./usePlace";
 
 interface IProps {
-  map_id: string;
-  onClick?: (mapId: string) => void;
+  placeId: string;
+  onPlaceClick?: (placeId: string) => void;
 }
 
 const Places = (props: IProps) => {
-  const { map_id, onClick } = props;
+  const { placeId, onPlaceClick } = props;
   const { t } = useTranslation();
 
-  const { data: res, error } = useSWR<{ data?: IPlace[] }>(
-    `/api/places?map_id=${map_id}`,
-    fetcher
-  );
+  const [place] = usePlace(placeId);
 
   return (
     <div>
-      <div>{t(map_id)}</div>
+      <div>{t(placeId)}</div>
       <div>{t("map_reach")}</div>
-      {res?.data?.map((edge) => {
+      {place?.travelRoutes?.map((route) => {
         return (
-          <div
-            onClick={() => onClick && onClick(edge.point.id)}
-            key={edge.point.id}
-          >
-            <div>{t(edge.point.name)}</div>
-          </div>
+          <PlaceItem
+            key={route.placeId}
+            placeId={route.placeId}
+            onClick={() => {
+              onPlaceClick && onPlaceClick(route.placeId);
+            }}
+          />
         );
       })}
     </div>

@@ -1,16 +1,17 @@
-export interface IPoint {
+export interface IPlace {
   id: string;
   name: string;
+  travelRoutes: ITravelRoute[];
 }
 
-export interface IPlace {
-  point: IPoint;
+export interface ITravelRoute {
+  placeId: string;
   distance: number;
 }
 
 export interface IGameData {
-  currentMapId: string;
-  destination: IPlace[];
+  currentPlaceId: string;
+  travelRoutes: ITravelRoute[];
   lastComputedTimestamp: number;
 }
 

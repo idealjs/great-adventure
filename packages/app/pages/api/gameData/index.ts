@@ -3,8 +3,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 import gamePlay, { IGameData } from "../../../lib/gamePlay";
 
 let gameData: IGameData = {
-  currentMapId: "1",
-  destination: [],
+  currentPlaceId: "1",
+  travelRoutes: [],
   lastComputedTimestamp: new Date().getTime(),
 };
 

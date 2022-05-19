@@ -1,21 +1,37 @@
-import { IPlace, IPoint } from "../../../lib/gamePlay";
+import { IPlace } from "../../../lib/gamePlay";
 
 class Graph {
-  public adjacency: Readonly<Map<string, IPlace[]>> = new Map();
-  public addEdge(from: IPoint, to: IPoint, distance: number) {
-    this.adjacency.set(
-      from.id,
-      (this.adjacency.get(from.id) ?? [])
-        .filter((t) => t.point.id !== to.id)
-        .concat({ point: to, distance })
-    );
+  public places: Map<string, IPlace> = new Map();
+
+  public addPlace(place: IPlace) {
+    this.places.set(place.id, {
+      ...(this.places.get(place.id) ?? place),
+    });
   }
 
-  public removeEdge(from: IPoint, to: IPoint) {
-    this.adjacency.set(
-      from.id,
-      (this.adjacency.get(from.id) ?? []).filter((t) => t.point.id !== to.id)
-    );
+  public addTravelRoute(from: IPlace, to: IPlace, distance: number) {
+    this.places.set(from.id, {
+      ...(this.places.get(from.id) ?? from),
+      travelRoutes: (this.places.get(from.id) ?? from).travelRoutes
+        .filter((route) => {
+          return route.placeId !== to.id;
+        })
+        .concat({
+          placeId: to.id,
+          distance,
+        }),
+    });
+  }
+
+  public removeTravelRoute(from: IPlace, to: IPlace) {
+    this.places.set(from.id, {
+      ...(this.places.get(from.id) ?? from),
+      travelRoutes: (this.places.get(from.id) ?? from).travelRoutes.filter(
+        (route) => {
+          return route.placeId !== to.id;
+        }
+      ),
+    });
   }
 }
 

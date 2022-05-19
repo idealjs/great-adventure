@@ -1,36 +1,36 @@
-import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { useState } from "react";
 import { useCallback } from "react";
-import useSWR from "swr";
 
-import fetcher from "../../lib/fetcher";
-import { IGameData } from "../../lib/gamePlay";
+import useGameData from "../GamePlay/useGameData";
 import Layout from "../Layout";
 import Places from "./Places";
 
 const Map = () => {
-  const [expands, setExpands] = useState<{ key: string; mapId: string }[]>([]);
+  const [expands, setExpands] = useState<{ key: string; placeId: string }[]>(
+    []
+  );
+
   const { t } = useTranslation();
 
-  const { data } = useSWR<IGameData>("/api/gameData", fetcher);
+  const [gameData] = useGameData();
 
-  const currentMapId = data?.currentMapId;
+  const currentPlaceId = gameData?.currentPlaceId;
 
-  const onPlaceClick = useCallback((key: string, mapId: string) => {
+  const onPlaceClick = useCallback((key: string, placeId: string) => {
     setExpands((expands) => {
       const target = expands.findIndex((expand) => expand.key === key);
       if (target !== -1) {
-        if (expands[target].mapId === mapId) {
+        if (expands[target].placeId === placeId) {
           return expands.slice(0, target);
         } else {
-          return [...expands.slice(0, target), { key, mapId }];
+          return [...expands.slice(0, target), { key, placeId }];
         }
       }
 
       return expands.concat({
         key,
-        mapId,
+        placeId,
       });
     });
   }, []);
@@ -40,21 +40,21 @@ const Map = () => {
       <div className="flex m-1">
         <div>
           <div>{t("map_title")}</div>
-          {currentMapId && (
+          {currentPlaceId && (
             <div>
               <Places
-                map_id={currentMapId}
-                onClick={(id) => {
-                  onPlaceClick(currentMapId, id);
+                placeId={currentPlaceId}
+                onPlaceClick={(id) => {
+                  onPlaceClick(currentPlaceId, id);
                 }}
               />
               {expands.map((e) => {
                 return (
                   <Places
-                    key={e.mapId}
-                    map_id={e.mapId}
-                    onClick={(id) => {
-                      onPlaceClick(e.mapId, id);
+                    key={e.placeId}
+                    placeId={e.placeId}
+                    onPlaceClick={(id) => {
+                      onPlaceClick(e.placeId, id);
                     }}
                   />
                 );
