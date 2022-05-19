@@ -4,6 +4,7 @@
   "rules": {
     "quotes": "warn",
     "eqeqeq": ["warn", "smart"],
+    "react/jsx-key": "warn",
     "simple-import-sort/imports": "warn",
     "simple-import-sort/exports": "warn",
     "react-hooks/exhaustive-deps": [
