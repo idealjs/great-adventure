@@ -4,7 +4,7 @@ import { useCallback } from "react";
 
 import useGameData from "../GamePlay/useGameData";
 import Layout from "../Layout";
-import Places from "./Places";
+import TravelRoutes from "./TravelRoutes";
 
 const Map = () => {
   const [expands, setExpands] = useState<{ key: string; placeId: string }[]>(
@@ -42,7 +42,7 @@ const Map = () => {
           <div>{t("map_title")}</div>
           {currentPlaceId && (
             <div>
-              <Places
+              <TravelRoutes
                 placeId={currentPlaceId}
                 onPlaceClick={(id) => {
                   onPlaceClick(currentPlaceId, id);
@@ -50,7 +50,7 @@ const Map = () => {
               />
               {expands.map((e) => {
                 return (
-                  <Places
+                  <TravelRoutes
                     key={e.placeId}
                     placeId={e.placeId}
                     onPlaceClick={(id) => {

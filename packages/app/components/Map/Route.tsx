@@ -8,15 +8,16 @@ interface IProps {
   onClick?: MouseEventHandler<HTMLDivElement>;
 }
 
-const PlaceItem = (props: IProps) => {
+const Route = (props: IProps) => {
   const { placeId, onClick } = props;
   const [place] = usePlace(placeId);
   const { t } = useTranslation();
 
   return place ? (
     <div onClick={onClick} key={placeId}>
-      <div>{t(place?.name)}</div>
+      <input type="checkbox" name="place" />
+      <label>{t(place?.name)}</label>
     </div>
   ) : null;
 };
-export default PlaceItem;
+export default Route;

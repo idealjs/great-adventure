@@ -1,6 +1,6 @@
 import { useTranslation } from "next-i18next";
 
-import PlaceItem from "./PlaceItem";
+import Route from "./Route";
 import usePlace from "./usePlace";
 
 interface IProps {
@@ -8,8 +8,9 @@ interface IProps {
   onPlaceClick?: (placeId: string) => void;
 }
 
-const Places = (props: IProps) => {
+const TravelRoutes = (props: IProps) => {
   const { placeId, onPlaceClick } = props;
+
   const { t } = useTranslation();
 
   const [place] = usePlace(placeId);
@@ -20,7 +21,7 @@ const Places = (props: IProps) => {
       <div>{t("map_reach")}</div>
       {place?.travelRoutes?.map((route) => {
         return (
-          <PlaceItem
+          <Route
             key={route.placeId}
             placeId={route.placeId}
             onClick={() => {
@@ -32,4 +33,4 @@ const Places = (props: IProps) => {
     </div>
   );
 };
-export default Places;
+export default TravelRoutes;
