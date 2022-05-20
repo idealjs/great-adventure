@@ -14,10 +14,11 @@ class Graph {
       ...(this.places.get(from.id) ?? from),
       travelRoutes: (this.places.get(from.id) ?? from).travelRoutes
         .filter((route) => {
-          return route.placeId !== to.id;
+          return route.to !== to.id;
         })
         .concat({
-          placeId: to.id,
+          from: from.id,
+          to: to.id,
           distance,
         }),
     });
@@ -28,7 +29,7 @@ class Graph {
       ...(this.places.get(from.id) ?? from),
       travelRoutes: (this.places.get(from.id) ?? from).travelRoutes.filter(
         (route) => {
-          return route.placeId !== to.id;
+          return route.to !== to.id;
         }
       ),
     });

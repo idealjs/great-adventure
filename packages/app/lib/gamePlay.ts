@@ -5,7 +5,8 @@ export interface IPlace {
 }
 
 export interface ITravelRoute {
-  placeId: string;
+  from: string;
+  to: string;
   distance: number;
 }
 

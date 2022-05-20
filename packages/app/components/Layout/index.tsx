@@ -12,7 +12,8 @@ const tooltip = clsx(
   "p-1 whitespace-nowrap select-none absolute left-full ml-2"
 );
 
-const button = "group relative bg-slate-700 w-9 h-9 m-1.5 hover:cursor-pointer";
+const button =
+  "group relative bg-slate-700 w-9 h-9 m-1.5 rounded hover:cursor-pointer";
 
 interface IProps {}
 

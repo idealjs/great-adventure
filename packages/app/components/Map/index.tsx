@@ -1,15 +1,15 @@
 import { useTranslation } from "next-i18next";
 import { useState } from "react";
+import { useRef } from "react";
 import { useCallback } from "react";
 
+import { ITravelRoute } from "../../lib/gamePlay";
 import useGameData from "../GamePlay/useGameData";
 import Layout from "../Layout";
 import TravelRoutes from "./TravelRoutes";
 
 const Map = () => {
-  const [expands, setExpands] = useState<{ key: string; placeId: string }[]>(
-    []
-  );
+  const [travelRoutes, setTravelRoutes] = useState<ITravelRoute[]>([]);
 
   const { t } = useTranslation();
 
@@ -17,23 +17,28 @@ const Map = () => {
 
   const currentPlaceId = gameData?.currentPlaceId;
 
-  const onPlaceClick = useCallback((key: string, placeId: string) => {
-    setExpands((expands) => {
-      const target = expands.findIndex((expand) => expand.key === key);
-      if (target !== -1) {
-        if (expands[target].placeId === placeId) {
-          return expands.slice(0, target);
-        } else {
-          return [...expands.slice(0, target), { key, placeId }];
-        }
-      }
+  const onRouteChanged = useCallback(
+    (from: string, travelRoute: ITravelRoute | null) => {
+      setTravelRoutes((routes) => {
+        const target = routes.findIndex((route) => route.from === from);
 
-      return expands.concat({
-        key,
-        placeId,
+        if (travelRoute != null && target === -1) {
+          return routes.concat(travelRoute);
+        }
+
+        if (travelRoute != null && target !== -1) {
+          return routes.slice(0, target).concat(travelRoute);
+        }
+
+        if (travelRoute == null && target !== -1) {
+          return routes.slice(0, target);
+        }
+
+        return routes;
       });
-    });
-  }, []);
+    },
+    []
+  );
 
   return (
     <Layout>
@@ -43,19 +48,15 @@ const Map = () => {
           {currentPlaceId && (
             <div>
               <TravelRoutes
-                placeId={currentPlaceId}
-                onPlaceClick={(id) => {
-                  onPlaceClick(currentPlaceId, id);
-                }}
+                from={currentPlaceId}
+                onRouteChanged={onRouteChanged}
               />
-              {expands.map((e) => {
+              {travelRoutes.map((r) => {
                 return (
                   <TravelRoutes
-                    key={e.placeId}
-                    placeId={e.placeId}
-                    onPlaceClick={(id) => {
-                      onPlaceClick(e.placeId, id);
-                    }}
+                    key={r.to}
+                    from={r.to}
+                    onRouteChanged={onRouteChanged}
                   />
                 );
               })}

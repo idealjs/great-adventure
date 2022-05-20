@@ -1,21 +1,28 @@
 import { useTranslation } from "next-i18next";
-import { MouseEventHandler } from "react";
+import { ChangeEventHandler, MouseEventHandler } from "react";
 
 import usePlace from "./usePlace";
 
 interface IProps {
   placeId: string;
-  onClick?: MouseEventHandler<HTMLDivElement>;
+  checked?: boolean;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
 const Route = (props: IProps) => {
-  const { placeId, onClick } = props;
+  const { placeId, checked, onChange } = props;
   const [place] = usePlace(placeId);
   const { t } = useTranslation();
 
   return place ? (
-    <div onClick={onClick} key={placeId}>
-      <input type="checkbox" name="place" />
+    <div key={placeId}>
+      <input
+        type="checkbox"
+        name="place"
+        checked={checked}
+        value={placeId}
+        onChange={onChange}
+      />
       <label>{t(place?.name)}</label>
     </div>
   ) : null;
