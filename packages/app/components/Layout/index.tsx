@@ -32,12 +32,12 @@ const Layout = (props: PropsWithChildren<IProps>) => {
       <div className="flex h-screen">
         <div className="flex flex-col justify-between	w-12 bg-slate-600">
           <div>
-            <Link href="/game/camp">
+            <Link href="/camp">
               <div className={button}>
                 <div className={tooltip}>{t("camp")}</div>
               </div>
             </Link>
-            <Link href="/game/map">
+            <Link href="/map">
               <div className={button}>
                 <div className={tooltip}>{t("map")}</div>
               </div>
