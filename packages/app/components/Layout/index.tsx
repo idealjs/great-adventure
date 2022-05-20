@@ -53,9 +53,11 @@ const Layout = (props: PropsWithChildren<IProps>) => {
             <div className={button}>
               <div className={tooltip}>{t("camp")}</div>
             </div>
-            <div className={button}>
-              <div className={tooltip}>{t("settings")}</div>
-            </div>
+            <Link href="/settings">
+              <div className={button}>
+                <div className={tooltip}>{t("settings")}</div>
+              </div>
+            </Link>
           </div>
         </div>
         {children}
