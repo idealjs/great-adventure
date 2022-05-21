@@ -1,4 +1,4 @@
-import { GameData, Place, Prisma } from "@prisma/client/gameData";
+import { GameData, Prisma, TravelRoute } from "@prisma/client/gameData";
 
 export const apiGameData = "/api/gameData";
 
@@ -9,7 +9,18 @@ export const updateGameData = async (gameData: GameData) => {
   });
 };
 
-export const patchGameData = (gameData: Prisma.GameDataCreateInput) => {};
+export const patchGameData = async (
+  gameData: GameData & { travelRoutes: TravelRoute[] }
+): Promise<{ data: GameData }> => {
+  const res = await fetch(apiGameData, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(gameData),
+  });
+  return res.json();
+};
 
 export const apiPlaces = "/api/places";
 

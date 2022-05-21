@@ -17,7 +17,6 @@ model TravelRoute {
   Place    Place?     @relation(fields: [placeId], references: [id])
   placeId  String?
 
-  TravelRouteOnGameData TravelRouteOnGameData[]
   @@unique([from, to])
 }
 
@@ -28,19 +27,9 @@ model Place {
 }
 
 model GameData {
-  id                    String                  @id @default(cuid())
-  userId                String                  @unique
+  id                    String        @id @default(cuid())
+  userId                String        @unique
   currentPlaceId        String
   travelRoutes          TravelRoute[]
-  lastComputedTimestamp DateTime                @default(now())
-  TravelRouteOnGameData TravelRouteOnGameData[]
-}
-
-model TravelRouteOnGameData {
-  gameData      GameData    @relation(fields: [gameDataId], references: [id])
-  gameDataId    String
-  travelRoute   TravelRoute @relation(fields: [travelRouteId], references: [id])
-  travelRouteId String
-
-  @@id([gameDataId, travelRouteId])
+  lastComputedTimestamp DateTime      @default(now())
 }

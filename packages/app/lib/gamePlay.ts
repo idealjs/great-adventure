@@ -11,7 +11,7 @@ export interface IGameData extends GameData {
 }
 
 const gamePlay = (gameData: IGameData): IGameData => {
-  return { ...gameData };
+  return { ...gameData, travelRoutes: gameData.travelRoutes.slice(0, -1) };
 };
 
 export default gamePlay;

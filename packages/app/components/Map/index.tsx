@@ -1,8 +1,8 @@
 import { useTranslation } from "next-i18next";
 import { useState } from "react";
-import { useRef } from "react";
 import { useCallback } from "react";
 
+import { patchGameData } from "../../lib/api";
 import { ITravelRoute } from "../../lib/gamePlay";
 import useGameData from "../GamePlay/useGameData";
 import Layout from "../Layout";
@@ -40,12 +40,24 @@ const Map = () => {
     []
   );
 
+  const onMapGoClick = useCallback(() => {
+    if (gameData) {
+      mutate(
+        patchGameData({
+          ...gameData,
+          travelRoutes: travelRoutes,
+        })
+      );
+    }
+  }, [gameData, mutate, travelRoutes]);
+
   return (
     <Layout>
       <div className="flex m-1">
         <div className="overflow-y-auto scrollbar">
           <div className="sticky top-0 bg-white">
-            {t("map_title")} <button>{t("map_go")}</button>
+            {t("map_title")}
+            <button onClick={onMapGoClick}>{t("map_go")}</button>
           </div>
           {currentPlaceId && (
             <div>
