@@ -2,10 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-.tooltip {
-  @apply invisible absolute;
-}
+@layer utilities {
+  .tooltip {
+    @apply invisible absolute;
+  }
 
-:has(.tooltip):hover {
-  @apply visible absolute;
+  :has(.tooltip):hover {
+    @apply visible absolute;
+  }
+
+  .scrollbar::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    background: #f7f4ed;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #e0cbcb;
+    border: 2px solid #f6f7ed;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #c0a0b9;
+  }
 }

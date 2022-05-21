@@ -13,7 +13,7 @@ const Map = () => {
 
   const { t } = useTranslation();
 
-  const [gameData] = useGameData();
+  const [gameData, mutate] = useGameData();
 
   const currentPlaceId = gameData?.currentPlaceId;
 
@@ -43,8 +43,10 @@ const Map = () => {
   return (
     <Layout>
       <div className="flex m-1">
-        <div>
-          <div>{t("map_title")}</div>
+        <div className="overflow-y-auto scrollbar">
+          <div className="sticky top-0 bg-white">
+            {t("map_title")} <button>{t("map_go")}</button>
+          </div>
           {currentPlaceId && (
             <div>
               <TravelRoutes

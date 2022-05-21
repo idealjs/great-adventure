@@ -1,19 +1,13 @@
-export interface IPlace {
-  id: string;
-  name: string;
+import { GameData, Place, TravelRoute } from "@prisma/client/gameData";
+
+export interface IPlace extends Place {
   travelRoutes: ITravelRoute[];
 }
 
-export interface ITravelRoute {
-  from: string;
-  to: string;
-  distance: number;
-}
+export interface ITravelRoute extends TravelRoute {}
 
-export interface IGameData {
-  currentPlaceId: string;
+export interface IGameData extends GameData {
   travelRoutes: ITravelRoute[];
-  lastComputedTimestamp: number;
 }
 
 const gamePlay = (gameData: IGameData): IGameData => {

@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import GamePlay from "../GamePlay";
 
 const tooltip = clsx(
+  "z-50",
   "invisible group-hover:visible",
   "bg-sky-300 rounded",
   "p-1 whitespace-nowrap select-none absolute left-full ml-2"

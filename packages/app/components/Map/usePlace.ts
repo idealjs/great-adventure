@@ -5,13 +5,13 @@ import { IPlace } from "../../lib/gamePlay";
 
 const usePlace = (
   placeId: string
-): [IPlace | undefined, KeyedMutator<IPlace>] => {
-  const { data, mutate } = useSWR<IPlace>(
-    `/api/places?place_id=${placeId}`,
+): [IPlace | undefined, KeyedMutator<{ data: IPlace[] }>] => {
+  const { data: res, mutate } = useSWR<{ data: IPlace[] }>(
+    `/api/places?placeId=${placeId}`,
     fetcher
   );
 
-  return [data, mutate];
+  return [res?.data[0], mutate];
 };
 
 export default usePlace;

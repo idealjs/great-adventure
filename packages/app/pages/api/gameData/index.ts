@@ -1,20 +1,19 @@
+import { PrismaClient } from "@prisma/client/gameData";
 import { NextApiRequest, NextApiResponse } from "next";
 
 import gamePlay, { IGameData } from "../../../lib/gamePlay";
 
-let gameData: IGameData = {
-  currentPlaceId: "1",
-  travelRoutes: [],
-  lastComputedTimestamp: new Date().getTime(),
-};
+const prisma = new PrismaClient();
 
 const calcGameData = async (gameData: IGameData) => {
-  const currentTimestamp = new Date().getTime();
+  const currentTimestamp = new Date();
   let nextGameData = gameData;
   return new Promise<IGameData>((resolve) => {
     for (
       let index = 0;
-      index < (currentTimestamp - gameData.lastComputedTimestamp) / 1000;
+      index <
+      (currentTimestamp.getTime() - gameData.lastComputedTimestamp.getTime()) /
+        1000;
       index++
     ) {
       console.debug("[debug] calcGameData");
@@ -32,14 +31,28 @@ const gameDataHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   switch (method) {
     case "GET":
-      const nextGameData = await calcGameData(gameData);
+      let gameData = await prisma.gameData.findUnique({
+        where: {
+          userId: "1",
+        },
+        include: {
+          travelRoutes: true,
+        },
+      });
 
-      gameData = nextGameData;
-      res.status(200).json(nextGameData);
+      if (gameData) {
+        const nextGameData = await calcGameData(gameData);
+        gameData = nextGameData;
+        res.json({
+          data: nextGameData,
+        });
+      }
 
+      res.status(404);
       return;
+
     default:
-      res.setHeader("Allow", ["GET"]);
+      res.setHeader("Allow", ["GET", "POST", "PUT", "PATCH"]);
       res.status(405).end(`Method ${method} Not Allowed`);
       return;
   }
