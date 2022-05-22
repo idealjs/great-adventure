@@ -1,14 +1,14 @@
-import { GameData } from "@prisma/client/gameData";
 import useSWR, { KeyedMutator } from "swr";
 
 import { apiGameData } from "../../lib/api";
 import fetcher from "../../lib/fetcher";
+import { IGameData } from "../../lib/gamePlay";
 
 const useGameData = (): [
-  GameData | undefined,
-  KeyedMutator<{ data: GameData }>
+  IGameData | undefined,
+  KeyedMutator<{ data: IGameData }>
 ] => {
-  const { data: res, mutate } = useSWR<{ data: GameData }>(
+  const { data: res, mutate } = useSWR<{ data: IGameData }>(
     apiGameData,
     fetcher
   );

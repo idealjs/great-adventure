@@ -2,9 +2,9 @@ import { useTranslation } from "next-i18next";
 import { useState } from "react";
 import { useCallback } from "react";
 
+import useGameData from "../../api/hook/useGameData";
 import { patchGameData } from "../../lib/api";
 import { ITravelRoute } from "../../lib/gamePlay";
-import useGameData from "../GamePlay/useGameData";
 import Layout from "../Layout";
 import TravelRoutes from "./TravelRoutes";
 

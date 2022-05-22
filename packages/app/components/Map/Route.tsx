@@ -1,7 +1,7 @@
 import { useTranslation } from "next-i18next";
-import { ChangeEventHandler, MouseEventHandler } from "react";
+import { ChangeEventHandler } from "react";
 
-import usePlace from "./usePlace";
+import usePlace from "../../api/hook/usePlace";
 
 interface IProps {
   placeId: string;

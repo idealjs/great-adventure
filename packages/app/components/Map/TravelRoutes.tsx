@@ -2,9 +2,9 @@ import { useTranslation } from "next-i18next";
 import { useEffect } from "react";
 import { useState } from "react";
 
+import usePlace from "../../api/hook/usePlace";
 import { ITravelRoute } from "../../lib/gamePlay";
 import Route from "./Route";
-import usePlace from "./usePlace";
 
 interface IProps {
   from: string;
