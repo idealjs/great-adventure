@@ -1,10 +1,14 @@
 import clsx from "clsx";
 import Head from "next/head";
 import Link from "next/link";
+import { useCallback } from "react";
 import { Fragment, PropsWithChildren } from "react";
 import { useTranslation } from "react-i18next";
 
+import useGameData from "../../api/hook/useGameData";
+import { patchGameData, updateGameData } from "../../lib/api";
 import GamePlay from "../GamePlay";
+import CurrentPlace from "./CurrentPlace";
 
 const tooltip = clsx(
   "z-50",
@@ -20,8 +24,18 @@ interface IProps {}
 
 const Layout = (props: PropsWithChildren<IProps>) => {
   const { children } = props;
+  const [gameData, mutate] = useGameData();
 
   const { t } = useTranslation();
+
+  const endJoureny = useCallback(() => {
+    mutate(
+      patchGameData({
+        ...gameData,
+        journeys: [],
+      })
+    );
+  }, [gameData, mutate]);
 
   return (
     <Fragment>
@@ -63,6 +77,12 @@ const Layout = (props: PropsWithChildren<IProps>) => {
           </div>
         </div>
         {children}
+        {gameData?.currentPlaceId && (
+          <CurrentPlace
+            placeId={gameData.currentPlaceId}
+            endJoureny={endJoureny}
+          />
+        )}
       </div>
     </Fragment>
   );

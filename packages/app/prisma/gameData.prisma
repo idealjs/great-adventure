@@ -9,13 +9,11 @@ generator client {
 }
 
 model TravelRoute {
-  id       String     @id @default(cuid())
+  id       String @id @default(cuid())
   from     String
   to       String
   distance Int
-  GameData GameData[]
-  Place    Place?     @relation(fields: [placeId], references: [id])
-  placeId  String?
+  Place    Place? @relation(fields: [from], references: [id])
 
   @@unique([from, to])
 }
@@ -26,10 +24,21 @@ model Place {
   travelRoutes TravelRoute[]
 }
 
+model Journey {
+  id       String @id @default(cuid())
+  from     String
+  to       String
+  distance Int
+
+  GameData   GameData? @relation(fields: [gameDataId], references: [id])
+  gameDataId String?
+}
+
 model GameData {
-  id                    String        @id @default(cuid())
-  userId                String        @unique
+  id                    String   @id @default(cuid())
+  userId                String   @unique
   currentPlaceId        String
-  travelRoutes          TravelRoute[]
-  lastComputedTimestamp DateTime      @default(now())
+  lastComputedTimestamp DateTime @default(now())
+
+  journeys Journey[]
 }

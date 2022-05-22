@@ -20,11 +20,14 @@ const TravelRoutes = (props: IProps) => {
 
   useEffect(() => {
     onRouteChanged && onRouteChanged(from, selected);
+    return () => {
+      onRouteChanged && onRouteChanged(from, null);
+    };
   }, [from, onRouteChanged, selected]);
 
   return (
     <div>
-      <div>{t(from)}</div>
+      <div>{place?.name}</div>
       <div>{t("map_reach")}</div>
       {place?.travelRoutes?.map((r) => {
         return (

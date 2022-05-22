@@ -7,5 +7,7 @@
   "map_title": "你想去哪里呢？",
   "map_go": "出发！",
   "map_reach": "可以前往的地方：",
+  "place_locate": "你正位于：",
+  "end_journey": "结束旅程",
   "settings": "设定"
 }

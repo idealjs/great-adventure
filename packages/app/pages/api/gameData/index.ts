@@ -1,14 +1,28 @@
-import { PrismaClient, TravelRoute } from "@prisma/client/gameData";
+import {
+  GameData,
+  Journey,
+  PrismaClient,
+  TravelRoute,
+} from "@prisma/client/gameData";
+import differenceWith from "lodash.differencewith";
 import { NextApiRequest, NextApiResponse } from "next";
 
 import gamePlay, { IGameData } from "../../../lib/gamePlay";
 
 const prisma = new PrismaClient();
 
-const calcGameData = async (gameData: IGameData) => {
+const calcGameData = async (
+  gameData: GameData & {
+    journeys: Journey[];
+  }
+) => {
   const currentTimestamp = new Date();
   let nextGameData = gameData;
-  return new Promise<IGameData>((resolve) => {
+  return new Promise<
+    GameData & {
+      journeys: Journey[];
+    }
+  >((resolve) => {
     for (
       let index = 0;
       index <
@@ -36,13 +50,13 @@ const gameDataHandler = async (req: NextApiRequest, res: NextApiResponse) => {
           userId: "1",
         },
         include: {
-          travelRoutes: true,
+          journeys: true,
         },
       });
 
       if (gameData) {
-        const { travelRoutes, ...nextGameData } = await calcGameData(gameData);
-
+        const { journeys, ...nextGameData } = await calcGameData(gameData);
+        const deletion = differenceWith(gameData.journeys, journeys);
         res.json({
           data: await prisma.gameData.update({
             where: {
@@ -50,11 +64,32 @@ const gameDataHandler = async (req: NextApiRequest, res: NextApiResponse) => {
             },
             data: {
               ...nextGameData,
-              travelRoutes: {
-                set: travelRoutes.map((route: TravelRoute) => ({
-                  id: route.id,
-                })),
+              journeys: {
+                connectOrCreate: journeys.map(({ gameDataId, ...journey }) => {
+                  return {
+                    where: {
+                      id: journey.id,
+                    },
+                    create: journey,
+                  };
+                }),
+                update: journeys.map(({ gameDataId, ...journey }) => {
+                  return {
+                    where: {
+                      id: journey.id,
+                    },
+                    data: journey,
+                  };
+                }),
+                delete: deletion.map((d) => {
+                  return {
+                    id: d.id,
+                  };
+                }),
               },
+            },
+            include: {
+              journeys: true,
             },
           }),
         });
@@ -62,23 +97,46 @@ const gameDataHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       res.status(404);
       return;
     case "PATCH": {
-      const { travelRoutes, ...nextGameData } = body;
-      res.json({
-        data: await prisma.gameData.update({
-          where: {
-            id: body.id,
-          },
-          data: {
-            ...nextGameData,
-            lastComputedTimestamp: new Date(),
-            travelRoutes: {
-              set: body.travelRoutes.map((route: TravelRoute) => ({
-                id: route.id,
-              })),
-            },
-          },
-        }),
+      const { journeys, ...nextGameData } = body;
+      const gameData = await prisma.gameData.findUnique({
+        where: {
+          userId: "1",
+        },
+        include: {
+          journeys: true,
+        },
       });
+      if (gameData) {
+        const deletion = differenceWith(gameData.journeys, journeys);
+        
+        res.json({
+          data: await prisma.gameData.update({
+            where: {
+              id: body.id,
+            },
+            data: {
+              ...nextGameData,
+              lastComputedTimestamp: new Date(),
+              journeys: {
+                connectOrCreate: body.journeys.map((journey: Journey) => {
+                  return {
+                    where: {
+                      id: journey.id,
+                    },
+                    create: journey,
+                  };
+                }),
+                delete: deletion.map((d) => {
+                  return {
+                    id: d.id,
+                  };
+                }),
+              },
+            },
+          }),
+        });
+      }
+
       return;
     }
     default:

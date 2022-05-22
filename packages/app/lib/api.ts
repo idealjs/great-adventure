@@ -12,7 +12,7 @@ export const updateGameData = async (gameData: GameData) => {
 };
 
 export const patchGameData = async (
-  gameData: IGameData
+  gameData: Partial<IGameData>
 ): Promise<{ data: IGameData }> => {
   const res = await fetch(apiGameData, {
     method: "PATCH",

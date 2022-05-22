@@ -5,7 +5,7 @@ const GamePlay = () => {
   const [gameData, mutate] = useGameData();
 
   useInterval(() => {
-    if (gameData?.travelRoutes != null && gameData.travelRoutes.length !== 0) {
+    if (gameData?.journeys != null && gameData.journeys.length !== 0) {
       mutate();
     }
   }, 1000);

@@ -45,11 +45,13 @@ const Map = () => {
       mutate(
         patchGameData({
           ...gameData,
-          travelRoutes: travelRoutes,
+          journeys: travelRoutes,
         })
       );
     }
   }, [gameData, mutate, travelRoutes]);
+
+  console.log("test test travelRoutes", travelRoutes);
 
   return (
     <Layout>
@@ -77,7 +79,6 @@ const Map = () => {
             </div>
           )}
         </div>
-        <div></div>
       </div>
     </Layout>
   );
