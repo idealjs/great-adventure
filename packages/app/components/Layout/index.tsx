@@ -1,3 +1,4 @@
+import { CogIcon, HomeIcon, MapIcon } from "@heroicons/react/outline";
 import clsx from "clsx";
 import Head from "next/head";
 import Link from "next/link";
@@ -6,7 +7,7 @@ import { Fragment, PropsWithChildren } from "react";
 import { useTranslation } from "react-i18next";
 
 import useGameData from "../../api/hook/useGameData";
-import { patchGameData, updateGameData } from "../../lib/api";
+import { patchGameData } from "../../lib/api";
 import GamePlay from "../GamePlay";
 import CurrentPlace from "./CurrentPlace";
 
@@ -17,8 +18,7 @@ const tooltip = clsx(
   "p-1 whitespace-nowrap select-none absolute left-full ml-2"
 );
 
-const button =
-  "group relative bg-slate-700 w-9 h-9 m-1.5 rounded hover:cursor-pointer";
+const button = "group relative bg-slate-700 w-9 h-9 p-1 m-1.5 rounded";
 
 interface IProps {}
 
@@ -51,28 +51,31 @@ const Layout = (props: PropsWithChildren<IProps>) => {
             <Link href="/camp">
               <div className={button}>
                 <div className={tooltip}>{t("camp")}</div>
+                <HomeIcon />
               </div>
             </Link>
             <Link href="/map">
-              <div className={button}>
+              <button className={button}>
                 <div className={tooltip}>{t("map")}</div>
-              </div>
+                <MapIcon />
+              </button>
             </Link>
-            <div className={button}>
+            <button className={button}>
               <div className={tooltip}>{t("camp")}</div>
-            </div>
+            </button>
           </div>
           <div>
-            <div className={button}>
+            <button className={button}>
               <div className={tooltip}>{t("camp")}</div>
-            </div>
-            <div className={button}>
+            </button>
+            <button className={button}>
               <div className={tooltip}>{t("camp")}</div>
-            </div>
+            </button>
             <Link href="/settings">
-              <div className={button}>
+              <button className={button}>
                 <div className={tooltip}>{t("settings")}</div>
-              </div>
+                <CogIcon />
+              </button>
             </Link>
           </div>
         </div>

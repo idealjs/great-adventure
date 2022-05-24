@@ -4,10 +4,10 @@
   "camp_empty_title": "营地里空空如也",
   "map": "地图",
   "map_placed": "你正在",
-  "map_title": "你想去哪里呢？",
-  "map_go": "出发！",
-  "map_reach": "可以前往的地方：",
-  "place_locate": "你正位于：",
+  "map_title": "你想去哪里呢?",
+  "map_go": "出发!",
+  "map_reach": "可以前往的地方:",
+  "place_locate": "你正位于:",
   "end_journey": "结束旅程",
   "settings": "设定"
 }

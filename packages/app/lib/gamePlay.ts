@@ -13,7 +13,6 @@ export interface ITravelRoute {
 export interface IGameData {
   userId: string;
   currentPlaceId: string;
-  lastComputedTimestamp: Date;
   journeys: ITravelRoute[];
 }
 
