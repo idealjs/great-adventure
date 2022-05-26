@@ -1,18 +1,14 @@
 import { useTranslation } from "next-i18next";
-import { useState } from "react";
-import { useCallback } from "react";
 
 import useGameData from "../../api/hook/useGameData";
 import usePlace from "../../api/hook/usePlace";
-import { patchGameData } from "../../lib/api";
-import { ITravelRoute } from "../../lib/gamePlay";
 import Layout from "../Layout";
-import TravelRoutes from "./TravelRoutes";
+import Routes from "./Routes";
 
 const Map = () => {
   const { t } = useTranslation();
 
-  const [gameData, mutate] = useGameData();
+  const [gameData] = useGameData();
   const [place] = usePlace(gameData?.currentPlaceId);
 
   return (
@@ -25,9 +21,7 @@ const Map = () => {
             <span className="mx-1">{t("map_reach")}</span>
           </div>
 
-          {place?.travelRoutes && (
-            <TravelRoutes travelRoutes={place?.travelRoutes} />
-          )}
+          {place && <Routes placeId={place?.id} hidden={false} />}
         </div>
       </div>
     </Layout>

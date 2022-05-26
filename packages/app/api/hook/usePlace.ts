@@ -4,10 +4,13 @@ import fetcher from "../../lib/fetcher";
 import { IPlace } from "../../lib/gamePlay";
 
 const usePlace = (
-  placeId?: string
+  placeId?: string,
+  hidden?: boolean
 ): [IPlace | undefined, KeyedMutator<{ data: IPlace[] }>] => {
   const { data: res, mutate } = useSWR<{ data: IPlace[] }>(
-    `/api/places?placeId=${placeId}`,
+    placeId != null && hidden !== true
+      ? `/api/places?placeId=${placeId}`
+      : null,
     fetcher
   );
 
