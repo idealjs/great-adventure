@@ -43,21 +43,24 @@ const Route = (props: IProps) => {
             <PaperAirplaneIcon className="text-gray-500	rotate-90" />
           </button>
         </div>
+        {(place ?? cachedPlace)?.travelRoutes?.map((r, index, array) => {
+          return (
+            <div key={r.to} className="flex">
+              <div
+                className={clsx("border-l-4 ml-2 mr-1", {
+                  hidden: !checked,
+                  "h-6": index === array.length - 1,
+                })}
+              >
+                <div
+                  className={clsx("w-2 border-t-4 top-5 relative", {})}
+                ></div>
+              </div>
+              <Route key={r.to} placeId={r.to} hidden={!checked} />
+            </div>
+          );
+        })}
       </div>
-      {(place ?? cachedPlace)?.travelRoutes?.map((r, index, array) => {
-        return (
-          <div key={r.to} className="flex">
-            <div
-              className={clsx("border-l-4 border-b-4 ml-2 pl-2", {
-                hidden: !checked,
-                "h-3": index === array.length - 1,
-                "h-5": index !== array.length - 1,
-              })}
-            ></div>
-            <Route key={r.to} placeId={r.to} hidden={!checked} />
-          </div>
-        );
-      })}
     </div>
   );
 };
