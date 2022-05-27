@@ -13,6 +13,7 @@ const nextConfig = (phase) => ({
     }
     return config;
   },
+  swcMinify: true,
 });
 
 module.exports = nextConfig;
