@@ -31,11 +31,11 @@ const Layout = (props: PropsWithChildren<IProps>) => {
   const endJoureny = useCallback(() => {
     mutate(
       patchGameData({
-        ...gameData,
+        userId: "1",
         journeys: [],
       })
     );
-  }, [gameData, mutate]);
+  }, [mutate]);
 
   return (
     <Fragment>

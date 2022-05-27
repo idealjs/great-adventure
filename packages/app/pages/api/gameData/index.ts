@@ -103,7 +103,7 @@ const gameDataHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       const { journeys, ...nextGameData } = body;
       const gameData = await prisma.gameData.findUnique({
         where: {
-          userId: "1",
+          userId: body.userId,
         },
         include: {
           journeys: true,
@@ -115,7 +115,7 @@ const gameDataHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         res.json({
           data: await prisma.gameData.update({
             where: {
-              id: body.id,
+              userId: body.userId,
             },
             data: {
               ...nextGameData,
