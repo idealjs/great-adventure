@@ -99,51 +99,8 @@ const gameDataHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       }
       res.status(404);
       return;
-    case "PATCH": {
-      const { journeys, ...nextGameData } = body;
-      const gameData = await prisma.gameData.findUnique({
-        where: {
-          userId: body.userId,
-        },
-        include: {
-          journeys: true,
-        },
-      });
-      if (gameData) {
-        const deletion = differenceWith(gameData.journeys, journeys);
-
-        res.json({
-          data: await prisma.gameData.update({
-            where: {
-              userId: body.userId,
-            },
-            data: {
-              ...nextGameData,
-              lastComputedTimestamp: new Date(),
-              journeys: {
-                connectOrCreate: body.journeys.map((journey: Journey) => {
-                  return {
-                    where: {
-                      id: journey.id,
-                    },
-                    create: journey,
-                  };
-                }),
-                delete: deletion.map((d) => {
-                  return {
-                    id: d.id,
-                  };
-                }),
-              },
-            },
-          }),
-        });
-      }
-
-      return;
-    }
     default:
-      res.setHeader("Allow", ["GET", "POST", "PUT", "PATCH"]);
+      res.setHeader("Allow", ["GET", "POST"]);
       res.status(405).end(`Method ${method} Not Allowed`);
       return;
   }

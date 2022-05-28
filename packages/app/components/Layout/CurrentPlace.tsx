@@ -1,3 +1,4 @@
+import { HandIcon } from "@heroicons/react/outline";
 import { useTranslation } from "next-i18next";
 
 import usePlace from "../../api/hook/usePlace";
@@ -16,7 +17,13 @@ const CurrentPlace = (props: IProps) => {
     <div>
       {t("place_locate")}
       {place?.name}
-      <button onClick={endJoureny}>{t("end_journey")}</button>
+      <button
+        className=" shadow-md py-2 px-6 inline-flex items-center"
+        onClick={endJoureny}
+      >
+        <span className="whitespace-nowrap">{t("end_journey")}</span>
+        <HandIcon height={24} width={24} />
+      </button>
     </div>
   );
 };

@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useSWRConfig } from "swr";
 
 import usePlace from "../../api/hook/usePlace";
-import { apiGameData, patchGameData } from "../../lib/api";
+import { apiGameData, patchGameDataJourneys } from "../../lib/api";
 import { ITravelRoute } from "../../lib/gamePlay";
 
 interface IProps {
@@ -46,7 +46,7 @@ const Route = (props: IProps) => {
           onClick={() => {
             mutate(
               apiGameData,
-              patchGameData({
+              patchGameDataJourneys({
                 userId: "1",
                 journeys: paths,
               })
