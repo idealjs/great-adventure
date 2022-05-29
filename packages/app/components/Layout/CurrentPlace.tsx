@@ -14,7 +14,7 @@ const CurrentPlace = (props: IProps) => {
   const { t } = useTranslation();
 
   return (
-    <div>
+    <div className="absolute right-0">
       {t("place_locate")}
       {place?.name}
       <button

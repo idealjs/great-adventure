@@ -1,9 +1,4 @@
-import {
-  GameData,
-  Journey,
-  PrismaClient,
-  TravelRoute,
-} from "@prisma/client/gameData";
+import { PrismaClient } from "@prisma/client/gameData";
 import differenceWith from "lodash.differencewith";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -11,18 +6,10 @@ import gamePlay, { IGameData } from "../../../lib/gamePlay";
 
 const prisma = new PrismaClient();
 
-const calcGameData = async (
-  gameData: GameData & {
-    journeys: Journey[];
-  }
-) => {
+const calcGameData = async (gameData: IGameData) => {
   const currentTimestamp = new Date();
   let nextGameData = gameData;
-  return new Promise<
-    GameData & {
-      journeys: Journey[];
-    }
-  >((resolve) => {
+  return new Promise<IGameData>((resolve) => {
     for (
       let index = 0;
       index <
@@ -51,11 +38,22 @@ const gameDataHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         },
         include: {
           journeys: true,
+          adventurers: {
+            include: {
+              equipments: {
+                include: {
+                  buff: true,
+                },
+              },
+            },
+          },
+          enemies: true,
         },
       });
 
       if (gameData) {
-        const { journeys, ...nextGameData } = await calcGameData(gameData);
+        const { journeys, adventurers, enemies, ...nextGameData } =
+          await calcGameData(gameData);
         const deletion = differenceWith(gameData.journeys, journeys);
         const { lastComputedTimestamp, ...data } = await prisma.gameData.update(
           {
@@ -65,7 +63,7 @@ const gameDataHandler = async (req: NextApiRequest, res: NextApiResponse) => {
             data: {
               ...nextGameData,
               journeys: {
-                connectOrCreate: journeys.map(({ gameDataId, ...journey }) => {
+                connectOrCreate: journeys.map((journey) => {
                   return {
                     where: {
                       id: journey.id,
@@ -73,7 +71,7 @@ const gameDataHandler = async (req: NextApiRequest, res: NextApiResponse) => {
                     create: journey,
                   };
                 }),
-                update: journeys.map(({ gameDataId, ...journey }) => {
+                update: journeys.map((journey) => {
                   return {
                     where: {
                       id: journey.id,

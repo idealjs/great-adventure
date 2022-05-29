@@ -1,4 +1,4 @@
-import { Journey, PrismaClient } from "@prisma/client/gameData";
+import { PrismaClient } from "@prisma/client/gameData";
 import differenceWith from "lodash.differencewith";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -10,10 +10,10 @@ const journeysHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { query, body, method } = req;
   switch (method) {
     case "PATCH": {
-      const { journeys, ...nextGameData } = body as IGameData;
+      const { journeys, userId, ...nextGameData } = body as IGameData;
       const gameData = await prisma.gameData.findUnique({
         where: {
-          userId: body.userId,
+          userId,
         },
         include: {
           journeys: true,

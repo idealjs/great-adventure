@@ -1,7 +1,7 @@
 import {
   ClipboardListIcon,
   CogIcon,
-  HomeIcon,
+  GlobeAltIcon,
   MapIcon,
 } from "@heroicons/react/outline";
 import clsx from "clsx";
@@ -54,10 +54,10 @@ const Layout = (props: PropsWithChildren<IProps>) => {
       <div className="flex h-screen">
         <div className="flex flex-col justify-between	w-12 bg-slate-600">
           <div>
-            <Link href="/camp">
+            <Link href="/detail">
               <button className={button}>
-                <div className={tooltip}>{t("camp")}</div>
-                <HomeIcon />
+                <div className={tooltip}>{t("detail")}</div>
+                <GlobeAltIcon />
               </button>
             </Link>
             <Link href="/map">
@@ -74,12 +74,6 @@ const Layout = (props: PropsWithChildren<IProps>) => {
             </Link>
           </div>
           <div>
-            <button className={button}>
-              <div className={tooltip}>{t("camp")}</div>
-            </button>
-            <button className={button}>
-              <div className={tooltip}>{t("camp")}</div>
-            </button>
             <Link href="/settings">
               <button className={button}>
                 <div className={tooltip}>{t("settings")}</div>

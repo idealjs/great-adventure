@@ -1,6 +1,6 @@
-import { GameData, Prisma, TravelRoute } from "@prisma/client/gameData";
+import { GameData, Prisma } from "@prisma/client/gameData";
 
-import { IGameData, ITravelRoute } from "./gamePlay";
+import { IGameData } from "./gamePlay";
 
 export const apiGameData = "/api/gameData";
 

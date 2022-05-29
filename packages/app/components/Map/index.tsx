@@ -15,13 +15,13 @@ const Map = () => {
     <Layout>
       <div className="flex m-1">
         <div className="overflow-y-auto scrollbar">
-          <div className="sticky top-0 bg-white">
+          <div className="sticky top-0 bg-white z-40">
             <h1 className="mx-1">{t("map_title")}</h1>
             <span className="mx-1">{place?.name}</span>
             <span className="mx-1">{t("map_reach")}</span>
           </div>
 
-          {place && <Routes placeId={place?.id} hidden={false} />}
+          {place?.id && <Routes placeId={place.id} hidden={false} />}
         </div>
       </div>
     </Layout>
