@@ -13,7 +13,9 @@ model TravelRoute {
   from     String
   to       String
   distance Int
-  Place    Place? @relation(fields: [from], references: [id])
+
+  Place   Place  @relation(fields: [placeId], references: [id])
+  placeId String
 
   @@unique([from, to])
 }
