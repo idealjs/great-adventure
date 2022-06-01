@@ -63,24 +63,42 @@ model Equipment {
 }
 
 model Character {
-  id          String    @id @default(cuid())
-  name        String
-  health      Int
-  attack      Int
-  defense     Int
-  actionPoint Int
-  GameData    GameData? @relation(fields: [gameDataId], references: [id])
-  gameDataId  String?
+  id     String @id @default(cuid())
+  name   String
+  level  Int
+  maxHP  Int
+  curHP  Int
+  maxMP  Int
+  curMP  Int
+  maxExp Int
+  curExp Int
+
+  attack  Int
+  defense Int
+
+  AP      Int
+  agility Int
+
+  GameData   GameData? @relation(fields: [gameDataId], references: [id])
+  gameDataId String?
 }
 
 model Adventurer {
-  id          String @id @default(cuid())
-  name        String
-  health      Int
-  attack      Int
-  defense     Int
-  pointUp     Int
-  actionPoint Int
+  id     String @id @default(cuid())
+  name   String
+  level  Int
+  maxHP  Int
+  curHP  Int
+  maxMP  Int
+  curMP  Int
+  curExp Int
+  maxExp Int
+
+  attack  Int
+  defense Int
+
+  AP      Int
+  agility Int
 
   equipments Equipment[]
 

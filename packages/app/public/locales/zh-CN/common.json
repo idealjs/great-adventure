@@ -9,6 +9,11 @@
   "map_reach": "可以前往的地方:",
   "place_locate": "你正位于:",
   "end_journey": "结束旅程",
+  "cur_level": "当前等级",
+  "max_HP": "最大生命值",
+  "cur_HP": "当前生命值",
+  "max_MP": "最大魔法值",
+  "cur_MP": "当前魔法值",
   "todos": "任务",
   "detail": "详细",
   "settings": "设定"
