@@ -63,15 +63,13 @@ model Equipment {
 }
 
 model Character {
-  id     String @id @default(cuid())
-  name   String
-  level  Int
-  maxHP  Int
-  curHP  Int
-  maxMP  Int
-  curMP  Int
-  maxExp Int
-  curExp Int
+  id    String @id @default(cuid())
+  name  String
+  level Int
+  maxHP Int
+  curHP Int
+  maxMP Int
+  curMP Int
 
   attack  Int
   defense Int

@@ -54,7 +54,8 @@ const gameDataHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       if (gameData) {
         const { journeys, adventurers, enemies, ...nextGameData } =
           await calcGameData(gameData);
-        const deletion = differenceWith(gameData.journeys, journeys);
+        const journeysDeletion = differenceWith(gameData.journeys, journeys);
+
         const { lastComputedTimestamp, ...data } = await prisma.gameData.update(
           {
             where: {
@@ -79,9 +80,19 @@ const gameDataHandler = async (req: NextApiRequest, res: NextApiResponse) => {
                     data: journey,
                   };
                 }),
-                delete: deletion.map((d) => {
+                delete: journeysDeletion.map((d) => {
                   return {
                     id: d.id,
+                  };
+                }),
+              },
+              adventurers: {
+                update: adventurers.map((adventurer) => {
+                  return {
+                    where: {
+                      id: adventurer.id,
+                    },
+                    data: adventurer,
                   };
                 }),
               },

@@ -42,6 +42,8 @@ export interface IGameData extends PartialOmit<GameData, "id"> {
 }
 
 const gamePlay = (gameData: IGameData): IGameData => {
+  if (gameData.enemies.length !== 0) {
+  }
   if (gameData.journeys.length !== 0) {
     return {
       ...gameData,
