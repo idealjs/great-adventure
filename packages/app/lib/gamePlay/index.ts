@@ -29,7 +29,9 @@ export interface IBuff extends PartialOmitAnyId<Buff> {}
 
 export interface IEquipment extends PartialOmitAnyId<Equipment> {}
 
-export interface ICharacter extends PartialOmitAnyId<Character> {}
+export interface ICharacter extends PartialOmitAnyId<Character> {
+  equipments: IEquipment[];
+}
 
 export interface IGameData extends PartialOmit<GameData, "id"> {
   journeys: IJourney[];

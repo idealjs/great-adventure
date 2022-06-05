@@ -49,6 +49,7 @@ const battle = (data: IGameData): IGameData => {
         const selected = attackTargets[index];
         selected.curHP = selected.curHP - (selected.defense - c.attack);
       }
+      c.AP = c.AP - 100;
     });
 
   return { ...data, characters };

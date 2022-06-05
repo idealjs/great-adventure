@@ -1,3 +1,4 @@
+import { CHARACTER_TYPE } from "@prisma/client/gameData";
 import {
   adjectives,
   colors,
@@ -5,14 +6,16 @@ import {
   uniqueNamesGenerator,
 } from "unique-names-generator";
 
-import { IAdventurer } from ".";
+import { ICharacter } from ".";
 
-const radomAdventurer = (seed?: string): IAdventurer => {
+const radomAdventurer = (seed?: string): ICharacter => {
   return {
     name: uniqueNamesGenerator({
       dictionaries: [colors, adjectives, names],
       seed,
     }),
+    type: CHARACTER_TYPE.ADVENTURER,
+    alive: true,
     level: 1,
     maxHP: 100,
     curHP: 100,
@@ -23,7 +26,7 @@ const radomAdventurer = (seed?: string): IAdventurer => {
     attack: 1,
     defense: 1,
     AP: 0,
-    agility: 1,
+    agility: 10,
     equipments: [],
   };
 };

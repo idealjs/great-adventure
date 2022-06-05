@@ -33,7 +33,7 @@ const journeysHandler = async (req: NextApiRequest, res: NextApiResponse) => {
           res.json({
             data: await prisma.gameData.update({
               where: {
-                userId: body.userId,
+                userId: userId,
               },
               data: {
                 ...nextGameData,

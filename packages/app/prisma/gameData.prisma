@@ -69,13 +69,15 @@ enum CHARACTER_TYPE {
 model Character {
   id String @id @default(cuid())
 
-  type  CHARACTER_TYPE
-  name  String
-  level Int
-  maxHP Int
-  curHP Int
-  maxMP Int
-  curMP Int
+  type   CHARACTER_TYPE
+  name   String
+  level  Int
+  maxHP  Int
+  curHP  Int
+  maxMP  Int
+  curMP  Int
+  maxExp Int
+  curExp Int
 
   attack  Int
   defense Int

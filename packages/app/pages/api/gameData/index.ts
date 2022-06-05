@@ -55,7 +55,7 @@ const gameDataHandler = async (req: NextApiRequest, res: NextApiResponse) => {
           gameData
         );
         const journeysDeletion = differenceWith(gameData.journeys, journeys);
-
+          
         const { lastComputedTimestamp, ...data } = await prisma.gameData.update(
           {
             where: {
