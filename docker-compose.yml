@@ -1,14 +1,23 @@
 version: "3.1"
 
 services:
-  db:
+  userData:
     image: postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: example
-      POSTGRES_DB: postgres
+      POSTGRES_DB: userData
     ports:
       - 5432:5432
+
+  gameData:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: gameData
+    ports:
+      - 5433:5432
 
   adminer:
     image: adminer

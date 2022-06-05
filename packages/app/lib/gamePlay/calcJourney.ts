@@ -1,20 +1,19 @@
-import { IJourney } from ".";
+import { IGameData } from ".";
 
-const calcJourney = (data: {
-  journeys: IJourney[];
-  currentPlaceId: string;
-}) => {
+const calcJourney = (data: IGameData): IGameData => {
   const { journeys, currentPlaceId } = data;
 
   const [current, ...tail] = journeys;
 
   if (current.distance === 0) {
     return {
+      ...data,
       currentPlaceId: current.to,
       journeys: tail,
     };
   } else {
     return {
+      ...data,
       currentPlaceId: currentPlaceId,
       journeys: [
         {

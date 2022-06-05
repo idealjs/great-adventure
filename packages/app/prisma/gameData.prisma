@@ -1,6 +1,6 @@
 datasource db {
-  provider = "sqlite"
-  url      = "file:dev.db"
+  provider = "postgresql"
+  url      = env("GAMEDATA_DATABASE_URL")
 }
 
 generator client {
@@ -43,9 +43,8 @@ model GameData {
   lastComputedTimestamp DateTime @default(now())
   helpWanted            Boolean
 
-  journeys    Journey[]
-  adventurers Adventurer[]
-  enemies     Character[]
+  journeys   Journey[]
+  characters Character[]
 }
 
 model Equipment {
@@ -58,12 +57,19 @@ model Equipment {
 
   buff Buff[]
 
-  Adventurer   Adventurer? @relation(fields: [adventurerId], references: [id])
-  adventurerId String?
+  Character   Character? @relation(fields: [characterId], references: [id])
+  characterId String?
+}
+
+enum CHARACTER_TYPE {
+  ADVENTURER
+  ENEMY
 }
 
 model Character {
-  id    String @id @default(cuid())
+  id String @id @default(cuid())
+
+  type  CHARACTER_TYPE
   name  String
   level Int
   maxHP Int
@@ -76,27 +82,7 @@ model Character {
 
   AP      Int
   agility Int
-
-  GameData   GameData? @relation(fields: [gameDataId], references: [id])
-  gameDataId String?
-}
-
-model Adventurer {
-  id     String @id @default(cuid())
-  name   String
-  level  Int
-  maxHP  Int
-  curHP  Int
-  maxMP  Int
-  curMP  Int
-  curExp Int
-  maxExp Int
-
-  attack  Int
-  defense Int
-
-  AP      Int
-  agility Int
+  alive   Boolean
 
   equipments Equipment[]
 

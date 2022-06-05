@@ -1,5 +1,4 @@
 import {
-  Adventurer,
   Buff,
   Character,
   Equipment,
@@ -9,6 +8,7 @@ import {
   TravelRoute,
 } from "@prisma/client/gameData";
 
+import battle from "./battle";
 import calcJourney from "./calcJourney";
 import radomAdventurer from "./radomAdventurer";
 
@@ -31,30 +31,23 @@ export interface IEquipment extends PartialOmitAnyId<Equipment> {}
 
 export interface ICharacter extends PartialOmitAnyId<Character> {}
 
-export interface IAdventurer extends PartialOmitAnyId<Adventurer> {
-  equipments: IEquipment[];
-}
-
 export interface IGameData extends PartialOmit<GameData, "id"> {
   journeys: IJourney[];
-  adventurers: IAdventurer[];
-  enemies: ICharacter[];
+  characters: ICharacter[];
 }
 
 const gamePlay = (gameData: IGameData): IGameData => {
-  if (gameData.enemies.length !== 0) {
+  if (gameData.characters.length !== 0) {
+    return battle(gameData);
   }
   if (gameData.journeys.length !== 0) {
-    return {
-      ...gameData,
-      ...calcJourney(gameData),
-    };
+    return calcJourney(gameData);
   }
   if (gameData.helpWanted) {
     return {
       ...gameData,
       helpWanted: false,
-      adventurers: [radomAdventurer(), ...gameData.adventurers],
+      characters: [radomAdventurer(), ...gameData.characters],
     };
   }
 
