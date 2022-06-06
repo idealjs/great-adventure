@@ -41,6 +41,9 @@ const battle = (data: IGameData): IGameData => {
         const index = Math.floor(Math.random() * attackTargets.length);
         const selected = attackTargets[index];
         selected.curHP = selected.curHP - (selected.defense - c.attack);
+        if (selected.curHP < 0) {
+          selected.alive = false;
+        }
       }
 
       if (c.type === CHARACTER_TYPE.ENEMY) {
@@ -48,6 +51,9 @@ const battle = (data: IGameData): IGameData => {
         const index = Math.floor(Math.random() * attackTargets.length);
         const selected = attackTargets[index];
         selected.curHP = selected.curHP - (selected.defense - c.attack);
+        if (selected.curHP < 0) {
+          selected.alive = false;
+        }
       }
       c.AP = c.AP - 100;
     });

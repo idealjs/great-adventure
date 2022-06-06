@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client/gameData";
+import { CHARACTER_TYPE, PrismaClient } from "@prisma/client/gameData";
 import differenceWith from "lodash.differencewith";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -55,7 +55,12 @@ const gameDataHandler = async (req: NextApiRequest, res: NextApiResponse) => {
           gameData
         );
         const journeysDeletion = differenceWith(gameData.journeys, journeys);
-          
+
+        const enemies = characters.filter(
+          (c) => c.type === CHARACTER_TYPE.ENEMY
+        );
+        const battleEnd = !enemies.map((c) => c.alive).includes(true);
+
         const { lastComputedTimestamp, ...data } = await prisma.gameData.update(
           {
             where: {
@@ -95,6 +100,7 @@ const gameDataHandler = async (req: NextApiRequest, res: NextApiResponse) => {
                     data: adventurer,
                   };
                 }),
+                deleteMany: battleEnd ? enemies : [],
               },
             },
             include: {
