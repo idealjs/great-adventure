@@ -1,9 +1,9 @@
 import { useTranslation } from "next-i18next";
 
-import { IAdventurer } from "../../../lib/gamePlay";
+import { ICharacter } from "../../../lib/gamePlay";
 
 interface IProps {
-  adventurer: IAdventurer;
+  adventurer: ICharacter;
 }
 
 const Card = (props: IProps) => {
