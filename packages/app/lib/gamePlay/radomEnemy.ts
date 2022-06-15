@@ -1,4 +1,3 @@
-import { CHARACTER_TYPE } from "@prisma/client/gameData";
 import {
   adjectives,
   animals,
@@ -14,7 +13,7 @@ const radomEnemy = (seed?: string): ICharacter => {
       dictionaries: [colors, adjectives, animals],
       seed,
     }),
-    type: CHARACTER_TYPE.ENEMY,
+    type: "ENEMY",
     alive: true,
     level: 1,
     maxHP: 100,

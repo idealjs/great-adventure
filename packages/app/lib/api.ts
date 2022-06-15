@@ -1,4 +1,5 @@
-import { GameData, Prisma } from "@prisma/client/gameData";
+import type { GameData } from "@prisma/client/gameData";
+import { Prisma } from "@prisma/client/gameData";
 
 import { IGameData } from "./gamePlay";
 

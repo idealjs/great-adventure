@@ -1,13 +1,13 @@
-import {
+import type {
   Buff,
   Character,
-  CHARACTER_TYPE,
   Equipment,
   GameData,
   Journey,
   Place,
   TravelRoute,
 } from "@prisma/client/gameData";
+import { CHARACTER_TYPE } from "@prisma/client/gameData";
 
 import getRandomIntInclusive from "../getRandomIntInclusive";
 import battle from "./battle";
